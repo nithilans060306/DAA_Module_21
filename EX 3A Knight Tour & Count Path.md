@@ -82,6 +82,7 @@ if __name__=='__main__':
 
 ## Output:
 
+![image](https://github.com/user-attachments/assets/d7edbe05-473d-411a-b816-a4e1475d16e5)
 
 
 ## Result:
