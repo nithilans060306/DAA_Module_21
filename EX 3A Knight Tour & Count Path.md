@@ -1,23 +1,83 @@
 # EX 3A Knight Tour & Count Path
-## DATE:
-## AIM:
-To write a python program to find minimum steps to reach to specific cell in minimum moves by knight
+## DATE: 15/04/2025
+## AIM: To write a python program to find minimum steps to reach to specific cell in minimum moves by knight
 
 
-## Algorithm
-1. 
-2. 
-3. 
-4.  
-5.   
+## Algorithm:
 
+1. **Initialize Movement**  
+   - Define possible knight moves using two arrays `dx` and `dy` for x and y directions respectively (8 possible L-shaped moves).
+
+2. **Initialize Queue and Visited Matrix**  
+   - Use a queue for Breadth-First Search (BFS) and enqueue the starting position of the knight with distance = 0.
+   - Create a `visited` 2D array to mark already visited cells on the board.
+
+3. **Breadth-First Search Loop**  
+   - While the queue is not empty:
+     - Dequeue a cell `t`.
+     - If `t` is the target position, return `t.dist` (minimum number of steps).
+     - For each of the 8 possible knight moves:
+       - Calculate new position `(x, y)`.
+       - If the new position is inside the board and not visited:
+         - Mark it visited and enqueue the new position with `dist + 1`.
+
+4. **Helper Function (isInside)**  
+   - Check if a given `(x, y)` coordinate lies within the bounds of the `N x N` chessboard.
+
+5. **Main Execution**  
+   - Read board size `N`, knight's position, and target position.
+   - Call `minStepToReachTarget()` and print the minimum steps required
+     
 ## Program:
-```
+```python
 /*
 Program to implement to find minimum steps to reach to specific cell in minimum moves by knight.
-Developed by: 
-Register Number:  
+Developed by: Nithilan S
+Register Number: 212223240108
 */
+from collections import deque
+class cell:
+     
+    def __init__(self, x = 0, y = 0, dist = 0):
+        self.x = x
+        self.y = y
+        self.dist = dist
+
+def isInside(x, y, N):
+    if (x >= 1 and x <= N and
+        y >= 1 and y <= N):
+        return True
+    return False
+def minStepToReachTarget(knightpos, targetpos, N):
+     
+    # add your code here
+    dx = [2, 2, -2, -2, 1, 1, -1, -1]
+    dy = [1, -1, 1, -1, 2, -2, 2, -2]
+    
+    queue = deque()
+    queue.append(cell(knightpos[0], knightpos[1], 0))
+    
+    visited = [[False for _ in range(N+1)] for _ in range(N+1)]
+    visited[knightpos[0]][knightpos[1]] = True
+    
+    while queue:
+        t = queue.popleft()
+        if t.x == targetpos[0] and t.y == targetpos[1]:
+            return t.dist
+            
+        for i in range(8):
+            x = t.x + dx[i]
+            y = t.y + dy[i]
+            
+            if isInside(x,y,N) and not visited[x][y]:
+                visited[x][y]=True
+                queue.append(cell(x,y,t.dist+1))
+    
+if __name__=='__main__':
+    N = 30
+    knightpos = [1, 1]
+    targetpos = [30, 30]
+    print(minStepToReachTarget(knightpos, targetpos, N))
 ```
 
 ## Output:
